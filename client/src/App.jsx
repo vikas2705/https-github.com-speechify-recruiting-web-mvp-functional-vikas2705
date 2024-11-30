@@ -32,7 +32,9 @@ function App() {
   return (
     <div>
       <Navbar />
-      <h1 style={{color: "white", textAlign: "center"}}>Speechify Voice Notes</h1>
+      <h1 style={{ color: "white", textAlign: "center" }}>
+        Speechify Voice Notes
+      </h1>
       {/* <p>Record or type something in the textbox.</p> */}
       <SpeechToText />
     </div>
