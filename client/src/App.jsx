@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import useAudioRecorder from "./useAudioRecorder";
 import useSocket from "./useSocket";
+import Navbar from "./components/Navbar/Navbar";
+import SpeechToText from "./components/SpeechToText/SpeechToText";
 
 // IMPORTANT: To ensure proper functionality and microphone access, please follow these steps:
 // 1. Access the site using 'localhost' instead of the local IP address.
@@ -29,8 +31,10 @@ function App() {
   // ... add more functions
   return (
     <div>
-      <h1>Speechify Voice Notes</h1>
-      <p>Record or type something in the textbox.</p>
+      <Navbar />
+      <h1 style={{color: "white", textAlign: "center"}}>Speechify Voice Notes</h1>
+      {/* <p>Record or type something in the textbox.</p> */}
+      <SpeechToText />
     </div>
   );
 }
