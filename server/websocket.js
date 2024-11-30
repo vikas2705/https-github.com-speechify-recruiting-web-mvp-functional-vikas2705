@@ -1,4 +1,4 @@
-import Transcriber from "./transcriber.js";
+import Transcriber from "./transcriber.js"; 
 
 /**
  * Events to subscribe to:
@@ -7,7 +7,6 @@ import Transcriber from "./transcriber.js";
  * - incoming-audio: Requires audio data as the parameter.
  * - stop-stream: Triggered when the client requests to stop the transcription stream.
  * - disconnect: Triggered when a client disconnects from the server.
- *
  *
  * Events to emit:
  * - transcriber-ready: Emitted when the transcriber is ready.
@@ -20,7 +19,7 @@ const deepgramApiKey = process.env.DEEPGRAM_API_KEY ??'';
 const sampleRate = process.env.SAMPLE_RATE ?? 16000
 const initializeWebSocket = (io) => {
   io.on("connection", (socket) => {
-    console.log(`connection made (${socket.id})`);
+    console.log(`Client connected: ${socket.id}`);
 
     const transcriber = new Transcriber(deepgramApiKey);
 
