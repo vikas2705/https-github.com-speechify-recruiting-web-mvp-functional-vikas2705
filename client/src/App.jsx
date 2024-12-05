@@ -2,35 +2,42 @@ import { useEffect } from "react";
 import useAudioRecorder from "./useAudioRecorder";
 import useSocket from "./useSocket";
 
-// IMPORTANT: To ensure proper functionality and microphone access, please follow these steps:
-// 1. Access the site using 'localhost' instead of the local IP address.
-// 2. When prompted, grant microphone permissions to the site to enable audio recording.
-// Failure to do so may result in issues with audio capture and transcription.
-// NOTE: Don't use createPortal()
-
 function App() {
-  const { initialize } = useSocket();
-
-  useEffect(() => {
-    // Note: must connect to server on page load but don't start transcriber
-    initialize();
-  }, []);
-
+  const { initialize, disconnect, sendAudio, transcriptions, isTranscriberReady, error } = useSocket();
   const { startRecording, stopRecording, isRecording } = useAudioRecorder({
-    dataCb: (data) => {},
+    dataCb: (audioData) => {
+      sendAudio(audioData);
+    },
   });
 
-  const onStartRecordingPress = async () => {
-    // start recorder and transcriber (send configure-stream)
-  };
+  useEffect(() => {
+    initialize(); 
+    return () => {
+      disconnect();
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const onStopRecordingPress = async () => {};
 
-  // ... add more functions
   return (
     <div>
-      <h1>Speechify Voice Notes</h1>
-      <p>Record or type something in the textbox.</p>
+      <h1>Real-Time Transcription</h1>
+      {isTranscriberReady ? (
+        <button onClick={isRecording ? stopRecording : startRecording}>
+          {isRecording ? "Stop Recording" : "Start Recording"}
+        </button>
+      ) : (
+        <p>Waiting for the transcriber to be ready...</p>
+      )}
+
+      {error && <p style={{ color: "red" }}>Error: {error}</p>}
+
+      <div>
+        <h2>Transcriptions:</h2>
+        {transcriptions.map((text, index) => (
+          <p key={index}>{text.channel.alternatives[0].transcript}</p>
+        ))}
+      </div>
     </div>
   );
 }
