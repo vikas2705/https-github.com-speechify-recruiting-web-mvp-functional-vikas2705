@@ -51,9 +51,6 @@ const initializeWebSocket = (io) => {
 
     // Handle incoming audio data from the WebSocket client
     socket.on("incoming-audio", (message) => {
-      console.log("socket: client data received");
-
-      // Send the audio payload to Deepgram
       transcriber.send(message);
     });
 
@@ -64,8 +61,6 @@ const initializeWebSocket = (io) => {
 
     // Handle WebSocket client disconnection
     socket.on("disconnect", () => {
-
-      // Clean up the transcription stream
       transcriber.endTranscriptionStream();
     });
   });

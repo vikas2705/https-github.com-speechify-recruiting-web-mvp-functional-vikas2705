@@ -5,7 +5,7 @@ const serverURL = "ws://localhost:8080";
 
 const useSocket = () => {
   const [socket, setSocket] = useState(null);
-  const [transcriptions, setTranscriptions] = useState([]);
+  const [transcriptions, setTranscriptions] = useState('');
   const [isTranscriberReady, setIsTranscriberReady] = useState(false);
   const [error, setError] = useState(null);
 
@@ -21,7 +21,7 @@ const useSocket = () => {
     });
 
     newSocket.on("final", (data) => {
-      setTranscriptions((prev) => [...prev, data]);
+      setTranscriptions((prev) => prev+data.channel.alternatives[0].transcript);
     });
 
     newSocket.on("partial", (data) => {

@@ -25,14 +25,15 @@ body {
 }
 
 .textarea-container textarea {
-    border: 1px solid gray;
+    border: none;
+    padding: 1.25rem;
     outline: none;
-    width: 90%;
-    border-radius: 20px;
+    width: 100%;
+    height: 100%;
     margin-top: 20px;
 }
 
-.speect-to-text-btn {
+.speech-to-text-btn {
     display: flex;
     align-items: center;
     width: 100%;
